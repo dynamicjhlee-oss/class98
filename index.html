@@ -219,6 +219,14 @@
             right: 10px;
         }
 
+        /* 터치 기기(휴대폰/태블릿)에서는 스와이프로 넘기므로 화살표를 숨김.
+           마우스를 쓰는 PC에서는 그대로 표시된다. */
+        @media (hover: none) and (pointer: coarse) {
+            .lightbox-nav {
+                display: none;
+            }
+        }
+
         #lightbox-counter {
             color: white;
             margin-top: 10px;
