@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>구팔회 모임 일지</title>
     <style>
         :root {
@@ -870,24 +871,61 @@
 </div>
 
 <script>
-    // 비밀번호 설정 (원하는 비밀번호로 변경 가능)
-    const SECRET_PASSWORD = "9898";
+    // 비밀번호는 평문 대신 PBKDF2 해시로 저장한다. 소스를 열어봐도 비밀번호 자체는 보이지 않는다.
+    // 비밀번호를 바꾸려면 새 salt/hash 를 만들어 아래 값을 교체하면 된다.
+    const PW_SALT_B64 = "Qi+MUC1aoCV7E3GaM2M+MQ==";
+    const PW_HASH_B64 = "Ujp4zZfbatMNhL46GfCq1H9RoC9lr9/8OSnLdPizfRI=";
+    const PW_ITERATIONS = 300000;
 
-    function authenticate() {
-        let inputPass = prompt("구팔회 모임 일지 접근 비밀번호를 입력하세요:");
-        if (inputPass === SECRET_PASSWORD) {
-            document.body.style.display = "block";
-        } else {
-            alert("비밀번호가 올바르지 않습니다.");
-            document.body.style.display = "block";
-            document.body.innerHTML = `
-                <div style="text-align:center; padding-top:100px;">
-                    <h2 style="color:#e74c3c;">접근 권한이 없습니다.</h2>
-                    <p>올바른 비밀번호를 입력해야 일지를 조회할 수 있습니다.</p>
-                    <button onclick="location.reload()" style="padding:10px 20px; font-size:1rem; cursor:pointer;">다시 시도</button>
-                </div>
-            `;
+    function b64ToBytes(b64) {
+        return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    }
+
+    function bytesToB64(bytes) {
+        return btoa(String.fromCharCode(...new Uint8Array(bytes)));
+    }
+
+    async function checkPassword(input) {
+        const keyMaterial = await crypto.subtle.importKey(
+            'raw', new TextEncoder().encode(input), 'PBKDF2', false, ['deriveBits']
+        );
+        const bits = await crypto.subtle.deriveBits(
+            { name: 'PBKDF2', salt: b64ToBytes(PW_SALT_B64), iterations: PW_ITERATIONS, hash: 'SHA-256' },
+            keyMaterial,
+            256
+        );
+        return bytesToB64(bits) === PW_HASH_B64;
+    }
+
+    function denyAccess() {
+        document.body.style.display = "block";
+        document.body.innerHTML = `
+            <div style="text-align:center; padding-top:100px;">
+                <h2 style="color:#e74c3c;">접근 권한이 없습니다.</h2>
+                <p>올바른 비밀번호를 입력해야 일지를 조회할 수 있습니다.</p>
+                <button onclick="location.reload()" style="padding:10px 20px; font-size:1rem; cursor:pointer;">다시 시도</button>
+            </div>
+        `;
+    }
+
+    async function authenticate() {
+        // 무차별 대입을 늦추기 위해 시도 횟수를 제한한다.
+        for (let attempt = 0; attempt < 3; attempt++) {
+            const inputPass = prompt("구팔회 모임 일지 접근 비밀번호를 입력하세요:");
+            if (inputPass === null) break;
+            let ok = false;
+            try {
+                ok = await checkPassword(inputPass);
+            } catch (e) {
+                ok = false;
+            }
+            if (ok) {
+                document.body.style.display = "block";
+                return;
+            }
+            if (attempt < 2) alert("비밀번호가 올바르지 않습니다. 다시 입력해 주세요.");
         }
+        denyAccess();
     }
 
     // 페이지 로드 시 바로 인증 실행
