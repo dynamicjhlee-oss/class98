@@ -185,7 +185,7 @@
         }
 
         #lightbox-img {
-            cursor: zoom-in;
+            cursor: default;
             user-select: none;
             touch-action: none;
             -webkit-user-drag: none;
@@ -953,7 +953,6 @@
     let zoomScale = 1;
     let panX = 0, panY = 0;
     let isPanning = false;
-    let wasDragged = false;
     let dragStartX, dragStartY, panStartX, panStartY;
 
     function openLightbox(imgEl) {
@@ -999,32 +998,15 @@
     function applyZoomTransform() {
         const img = document.getElementById('lightbox-img');
         img.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
-        img.style.cursor = zoomScale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'zoom-in';
+        img.style.cursor = zoomScale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default';
     }
 
     const lightboxImg = document.getElementById('lightbox-img');
 
-    lightboxImg.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (suppressClick) return;   // 터치 조작은 확대 토글하지 않음
-        if (wasDragged) {
-            wasDragged = false;
-            return;
-        }
-        if (zoomScale === 1) {
-            zoomScale = 2.5;
-        } else {
-            zoomScale = 1;
-            panX = 0;
-            panY = 0;
-        }
-        applyZoomTransform();
-    });
-
+    // PC에서는 마우스 휠로만 확대/축소한다. (클릭 확대 없음)
     lightboxImg.addEventListener('mousedown', function(e) {
         if (zoomScale === 1) return;
         isPanning = true;
-        wasDragged = false;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
         panStartX = panX;
@@ -1036,7 +1018,6 @@
         if (!isPanning) return;
         const dx = e.clientX - dragStartX;
         const dy = e.clientY - dragStartY;
-        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) wasDragged = true;
         panX = panStartX + dx;
         panY = panStartY + dy;
         applyZoomTransform();
@@ -1065,7 +1046,6 @@
     let touchStartX = 0, touchStartY = 0;
     let touchPanStartX = 0, touchPanStartY = 0;
     let pinchStartDist = 0, pinchStartScale = 1;
-    let suppressClick = false;
 
     function touchDistance(t1, t2) {
         const dx = t1.clientX - t2.clientX;
@@ -1074,7 +1054,6 @@
     }
 
     lightboxImg.addEventListener('touchstart', function(e) {
-        suppressClick = true;
         if (e.touches.length === 2) {
             touchMode = 'pinch';
             pinchStartDist = touchDistance(e.touches[0], e.touches[1]);
@@ -1119,8 +1098,6 @@
         }
         if (e.touches.length === 0) {
             touchMode = null;
-            // 터치로 발생하는 합성 click(확대 토글)을 막음
-            setTimeout(function() { suppressClick = false; }, 300);
         }
         e.preventDefault();
     }, { passive: false });
