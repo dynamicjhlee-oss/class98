@@ -122,6 +122,9 @@
         .info-label {
             font-weight: bold;
             width: 80px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            margin-right: 8px;
             color: #555;
         }
 
@@ -136,6 +139,87 @@
 
         .absent-tag {
             color: #888;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            display: block;
+            transition: transform 0.15s;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 6px;
+        }
+
+        #lightbox-img {
+            cursor: zoom-in;
+            user-select: none;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 10px 20px;
+            user-select: none;
+        }
+
+        .lightbox-prev {
+            left: 10px;
+        }
+
+        .lightbox-next {
+            right: 10px;
+        }
+
+        #lightbox-counter {
+            color: white;
+            margin-top: 10px;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 600px) {
@@ -173,6 +257,22 @@
                 <span class="info-label">참석 (5명):</span>
                 <span class="info-content">성주원, 이상욱, 정섬건, 지준식, 이종협</span>
             </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2026(2)/2026(2)-00.jpg" alt="2026년 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-01.jpg" alt="2026년 (2) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-02.jpg" alt="2026년 (2) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-03.jpg" alt="2026년 (2) 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-04.jpg" alt="2026년 (2) 사진 5" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-05.jpg" alt="2026년 (2) 사진 6" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-06.jpg" alt="2026년 (2) 사진 7" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-07.jpg" alt="2026년 (2) 사진 8" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-08.jpg" alt="2026년 (2) 사진 9" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-09.jpg" alt="2026년 (2) 사진 10" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-10.jpg" alt="2026년 (2) 사진 11" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-11.jpg" alt="2026년 (2) 사진 12" onclick="openLightbox(this)">
+                <img src="정리사진/2026(2)/2026(2)-12.jpg" alt="2026년 (2) 사진 13" onclick="openLightbox(this)">
+            </div>
         </div>
 
         <div class="timeline-card">
@@ -186,6 +286,12 @@
             <div class="info-row">
                 <span class="info-label">참석 (11명):</span>
                 <span class="info-content">성주원, 이상욱, 정섬건, 지준식, 조용호, 이종협, 유상석, 장영호, 박연호, 이원도, 이석진</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2026(1)/2026(1)-1.jpg" alt="2026년 (1) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2026(1)/2026(1)-2.jpg" alt="2026년 (1) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2026(1)/2026(1)-3.jpg" alt="2026년 (1) 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -202,9 +308,15 @@
                 <span class="info-label">참석 (8명):</span>
                 <span class="info-content">성주원, 이상욱, 정섬건, 지준식, 조용호, 이종협, 유상석, 장영호</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">3명</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2025(4)/2025(4)-1.jpg" alt="2025년 (4) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-2.jpg" alt="2025년 (4) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-3.jpg" alt="2025년 (4) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-4.jpg" alt="2025년 (4) 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-5.jpg" alt="2025년 (4) 사진 5" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-6.jpg" alt="2025년 (4) 사진 6" onclick="openLightbox(this)">
+                <img src="정리사진/2025(4)/2025(4)-7.jpg" alt="2025년 (4) 사진 7" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -221,12 +333,16 @@
                 <span class="info-content">성주원, 이상욱, 정섬건, 지준식, 박연호, 조용호, 이종협</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">4명</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">미루나무집, 피씨방, 복이원(중국집)</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2025(3)/2025(3)-1.jpg" alt="2025년 (3) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2025(3)/2025(3)-2.jpg" alt="2025년 (3) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2025(3)/2025(3)-3.jpg" alt="2025년 (3) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2025(3)/2025(3)-4.jpg" alt="2025년 (3) 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2025(3)/2025(3)-5.jpg" alt="2025년 (3) 사진 5" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -243,12 +359,13 @@
                 <span class="info-content">성주원, 이상욱, 정섬건, 이원도, 이종협</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">6명</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">미나리밭오리사냥, 앵두, 놀부부대찌개, 커피빈</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2025(2)/2025(2)-1.jpg" alt="2025년 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2025(2)/2025(2)-2.jpg" alt="2025년 (2) 사진 2" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -269,12 +386,13 @@
                 <span class="info-content guest-tag">조지훈</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">박연호, 유상석, 이석진, 정섬건 (4명)</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">양복집, 전주전집, 초동집</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2025(1)/2025(1)-1.jpg" alt="2025년 (1) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2025(1)/2025(1)-2.jpg" alt="2025년 (1) 사진 2" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -290,6 +408,12 @@
             <div class="info-row">
                 <span class="info-label">참석 (11명):</span>
                 <span class="info-content">성주원, 지준식, 박연호, 조용호, 이석진, 정섬건, 이상욱, 유상석, 이종협, 이원도, 장영호</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2024(5)/2024(5)-1.jpg" alt="2024년 (5) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2024(5)/2024(5)-2.jpg" alt="2024년 (5) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2024(5)/2024(5)-3.jpg" alt="2024년 (5) 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -309,9 +433,12 @@
                 <span class="info-label">초대:</span>
                 <span class="info-content guest-tag">김소연</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">박연호, 유상석, 이석진, 성주원, 이원도 (5명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2024(4)/2024(4)-1.jpg" alt="2024년 (4) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2024(4)/2024(4)-2.jpg" alt="2024년 (4) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2024(4)/2024(4)-3.jpg" alt="2024년 (4) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2024(4)/2024(4)-4.jpg" alt="2024년 (4) 사진 4" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -327,9 +454,12 @@
                 <span class="info-label">참석 (10명):</span>
                 <span class="info-content">조용호, 장영호, 성주원, 박연호, 정섬건, 이상욱, 지준식, 유상석, 이원도, 이석진, 이종협</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">박연호 (1명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2024(3)/2024(3)-1.jpg" alt="2024년 (3) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2024(3)/2024(3)-2.jpg" alt="2024년 (3) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2024(3)/2024(3)-3.jpg" alt="2024년 (3) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2024(3)/2024(3)-4.jpg" alt="2024년 (3) 사진 4" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -345,9 +475,10 @@
                 <span class="info-label">참석 (7명):</span>
                 <span class="info-content">조용호, 장영호, 성주원, 박연호, 정섬건, 이상욱, 지준식</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">유상석, 이원도, 이석진, 이종협 (4명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2024(2)/2024(2)-1.jpg" alt="2024년 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2024(2)/2024(2)-2.jpg" alt="2024년 (2) 사진 2" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -363,9 +494,11 @@
                 <span class="info-label">참석 (9명):</span>
                 <span class="info-content">장영호, 유상석, 정섬건, 이종협, 이원도, 조용호, 이석진, 이상욱, 지준식</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">성주원, 박연호 (2명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2024(1)/2024(1)-1.jpg" alt="2024년 (1) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2024(1)/2024(1)-2.jpg" alt="2024년 (1) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2024(1)/2024(1)-3.jpg" alt="2024년 (1) 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -383,12 +516,13 @@
                 <span class="info-content">이상욱, 정섬건, 박연호, 이종협</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">7명</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">동방명주 등</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2023하반기(2)/2023하반기(2)-1.jpg" alt="2023년 하반기 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기(2)/2023하반기(2)-2.jpg" alt="2023년 하반기 (2) 사진 2" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -409,12 +543,17 @@
                 <span class="info-content guest-tag">김소연, 양우근 (2명)</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">정섬건, 박연호 (2명)</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">강서 중국집, 보쌈 등</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2023하반기/2023하반기-1.jpg" alt="2023년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기/2023하반기-2.jpg" alt="2023년 하반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기/2023하반기-3.jpg" alt="2023년 하반기 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기/2023하반기-4.jpg" alt="2023년 하반기 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기/2023하반기-5.jpg" alt="2023년 하반기 사진 5" onclick="openLightbox(this)">
+                <img src="정리사진/2023하반기/2023하반기-6.jpg" alt="2023년 하반기 사진 6" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -438,6 +577,12 @@
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">보쌈, 중국집, 복집 등</span>
             </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2023상반기/2023상반기-1.jpg" alt="2023년 상반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2023상반기/2023상반기-2.jpg" alt="2023년 상반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2023상반기/2023상반기-3.jpg" alt="2023년 상반기 사진 3" onclick="openLightbox(this)">
+            </div>
         </div>
 
         <!-- 2022년 이전 -->
@@ -453,9 +598,19 @@
                 <span class="info-label">참석 (8명):</span>
                 <span class="info-content">지준식, 성주원, 조용호, 장영호, 이상욱, 이종협, 유상석, 정섬건</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">이원도, 박연호 (2명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-1.jpg" alt="2022년 하반기 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-2.jpg" alt="2022년 하반기 (2) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-3.jpg" alt="2022년 하반기 (2) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-4.jpg" alt="2022년 하반기 (2) 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-5.jpg" alt="2022년 하반기 (2) 사진 5" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-6.jpg" alt="2022년 하반기 (2) 사진 6" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-7.jpg" alt="2022년 하반기 (2) 사진 7" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-8.jpg" alt="2022년 하반기 (2) 사진 8" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-9.jpg" alt="2022년 하반기 (2) 사진 9" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-10.jpg" alt="2022년 하반기 (2) 사진 10" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(2)/2022하반기(2)-11.jpg" alt="2022년 하반기 (2) 사진 11" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -472,12 +627,14 @@
                 <span class="info-content">지준식, 성주원, 조용호, 장영호, 이상욱, 이종협, 유상석</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">정섬건, 이원도, 박연호 (3명)</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">진대감 등</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2022하반기(1)/2022하반기(1)-1.jpg" alt="2022년 하반기 (1) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(1)/2022하반기(1)-2.jpg" alt="2022년 하반기 (1) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2022하반기(1)/2022하반기(1)-3.jpg" alt="2022년 하반기 (1) 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -494,12 +651,16 @@
                 <span class="info-content">정섬건, 지준식, 성주원, 조용호, 장영호, 이원도, 이종협</span>
             </div>
             <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">3명</span>
-            </div>
-            <div class="info-row">
                 <span class="info-label">세부장소:</span>
                 <span class="info-content">송추가마골 은평2, 섬건이네</span>
+            </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2022상반기(2)/2022상반기(2)-1.jpg" alt="2022년 상반기 (2) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(2)/2022상반기(2)-2.jpg" alt="2022년 상반기 (2) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(2)/2022상반기(2)-3.jpg" alt="2022년 상반기 (2) 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(2)/2022상반기(2)-4.jpg" alt="2022년 상반기 (2) 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(2)/2022상반기(2)-5.jpg" alt="2022년 상반기 (2) 사진 5" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -515,9 +676,11 @@
                 <span class="info-label">참석 (8명):</span>
                 <span class="info-content">정섬건, 지준식, 유상석, 이상욱, 성주원, 조용호, 이원도, 이종협</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">2명</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2022상반기(1)/2022상반기(1)-1.jpg" alt="2022년 상반기 (1) 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(1)/2022상반기(1)-2.jpg" alt="2022년 상반기 (1) 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2022상반기(1)/2022상반기(1)-3.jpg" alt="2022년 상반기 (1) 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -534,9 +697,11 @@
                 <span class="info-label">참석 (5명):</span>
                 <span class="info-content">성주원, 이상욱, 이종협, 지준식, 유상석</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">5명</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2021하반기/2021하반기-1.jpg" alt="2021년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2021하반기/2021하반기-2.jpg" alt="2021년 하반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2021하반기/2021하반기-3.jpg" alt="2021년 하반기 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -552,9 +717,11 @@
                 <span class="info-label">참석 (7명):</span>
                 <span class="info-content">성주원, 이상욱, 이원도, 이종협, 정무명, 조용호, 지준식</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">박연호, 장영호, 유상석 (3명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2020상반기/2020상반기-1.jpg" alt="2020년 상반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2020상반기/2020상반기-2.jpg" alt="2020년 상반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2020상반기/2020상반기-3.jpg" alt="2020년 상반기 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -574,9 +741,11 @@
                 <span class="info-label">초대:</span>
                 <span class="info-content guest-tag">김현희, 박현택 (2명)</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">성주원, 박연호, 장영호, 유상석 (4명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2019하반기/2019하반기-1.jpg" alt="2019년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2019하반기/2019하반기-2.jpg" alt="2019년 하반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2019하반기/2019하반기-3.jpg" alt="2019년 하반기 사진 3" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -592,9 +761,9 @@
                 <span class="info-label">참석 (9명):</span>
                 <span class="info-content">박연호, 성주원, 이상욱, 이원도, 이종협, 정무명, 지준식, 장영호, 조용호</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">유상석 (1명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2019상반기/2019상반기-1.jpg" alt="2019년 상반기 사진 1" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -610,9 +779,10 @@
                 <span class="info-label">참석 (8명):</span>
                 <span class="info-content">박연호, 성주원, 유상석, 이상욱, 이원도, 이종협, 정무명, 지준식</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">장영호, 조용호 (2명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2018하반기/2018하반기-1.jpg" alt="2018년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2018하반기/2018하반기-2.jpg" alt="2018년 하반기 사진 2" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -628,9 +798,13 @@
                 <span class="info-label">참석 (8명):</span>
                 <span class="info-content">성주원, 유상석, 이상욱, 이원도, 이종협, 정무명, 조용호, 지준식</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">박연호, 장영호 (2명)</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2018상반기/2018상반기-1.jpg" alt="2018년 상반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2018상반기/2018상반기-2.jpg" alt="2018년 상반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2018상반기/2018상반기-3.jpg" alt="2018년 상반기 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2018상반기/2018상반기-4.jpg" alt="2018년 상반기 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2018상반기/2018상반기-5.jpg" alt="2018년 상반기 사진 5" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -646,9 +820,13 @@
                 <span class="info-label">참석 (10명):</span>
                 <span class="info-content">박연호, 성주원, 이상욱, 이원도, 이종협, 장영호, 정무명, 조용호, 지준식, 강태욱</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">불참:</span>
-                <span class="info-content absent-tag">없음</span>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2017하반기/2017하반기-1.jpg" alt="2017년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2017하반기/2017하반기-2.jpg" alt="2017년 하반기 사진 2" onclick="openLightbox(this)">
+                <img src="정리사진/2017하반기/2017하반기-3.jpg" alt="2017년 하반기 사진 3" onclick="openLightbox(this)">
+                <img src="정리사진/2017하반기/2017하반기-4.jpg" alt="2017년 하반기 사진 4" onclick="openLightbox(this)">
+                <img src="정리사진/2017하반기/2017하반기-5.jpg" alt="2017년 하반기 사진 5" onclick="openLightbox(this)">
             </div>
         </div>
 
@@ -664,8 +842,21 @@
                 <span class="info-label">참석 (9명):</span>
                 <span class="info-content">박연호, 성주원, 이원도, 이종협, 장영호, 정무명, 조용호, 지준식, 이상욱</span>
             </div>
+        
+            <div class="photo-grid">
+                <img src="정리사진/2016하반기/2016하반기-1.jpg" alt="2016년 하반기 사진 1" onclick="openLightbox(this)">
+                <img src="정리사진/2016하반기/2016하반기-2.jpg" alt="2016년 하반기 사진 2" onclick="openLightbox(this)">
+            </div>
         </div>
     </div>
+</div>
+
+<div id="lightbox" onclick="if(event.target===this) closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <span class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#10094;</span>
+    <img id="lightbox-img" src="" alt="확대 사진">
+    <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#10095;</span>
+    <div id="lightbox-counter"></div>
 </div>
 
 <script>
@@ -706,6 +897,127 @@
             }
         }
     }
+
+    let lightboxImages = [];
+    let lightboxIndex = 0;
+
+    let zoomScale = 1;
+    let panX = 0, panY = 0;
+    let isPanning = false;
+    let wasDragged = false;
+    let dragStartX, dragStartY, panStartX, panStartY;
+
+    function openLightbox(imgEl) {
+        const grid = imgEl.closest('.photo-grid');
+        const imgs = Array.from(grid.querySelectorAll('img'));
+        lightboxImages = imgs.map(i => i.src);
+        lightboxIndex = imgs.indexOf(imgEl);
+        updateLightboxImage();
+        document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function updateLightboxImage() {
+        resetZoom();
+        document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+        document.getElementById('lightbox-counter').textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length;
+
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+        prevBtn.style.visibility = lightboxIndex <= 0 ? 'hidden' : 'visible';
+        nextBtn.style.visibility = lightboxIndex >= lightboxImages.length - 1 ? 'hidden' : 'visible';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        resetZoom();
+    }
+
+    function lightboxNav(dir) {
+        const newIndex = lightboxIndex + dir;
+        if (newIndex < 0 || newIndex >= lightboxImages.length) return;
+        lightboxIndex = newIndex;
+        updateLightboxImage();
+    }
+
+    function resetZoom() {
+        zoomScale = 1;
+        panX = 0;
+        panY = 0;
+        isPanning = false;
+        applyZoomTransform();
+    }
+
+    function applyZoomTransform() {
+        const img = document.getElementById('lightbox-img');
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+        img.style.cursor = zoomScale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'zoom-in';
+    }
+
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    lightboxImg.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (wasDragged) {
+            wasDragged = false;
+            return;
+        }
+        if (zoomScale === 1) {
+            zoomScale = 2.5;
+        } else {
+            zoomScale = 1;
+            panX = 0;
+            panY = 0;
+        }
+        applyZoomTransform();
+    });
+
+    lightboxImg.addEventListener('mousedown', function(e) {
+        if (zoomScale === 1) return;
+        isPanning = true;
+        wasDragged = false;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        panStartX = panX;
+        panStartY = panY;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isPanning) return;
+        const dx = e.clientX - dragStartX;
+        const dy = e.clientY - dragStartY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) wasDragged = true;
+        panX = panStartX + dx;
+        panY = panStartY + dy;
+        applyZoomTransform();
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isPanning) {
+            isPanning = false;
+            applyZoomTransform();
+        }
+    });
+
+    lightboxImg.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.3 : -0.3;
+        zoomScale = Math.min(4, Math.max(1, zoomScale + delta));
+        if (zoomScale === 1) {
+            panX = 0;
+            panY = 0;
+        }
+        applyZoomTransform();
+    }, { passive: false });
+
+    document.addEventListener('keydown', function(e) {
+        const lb = document.getElementById('lightbox');
+        if (lb.style.display === 'flex') {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') lightboxNav(1);
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+        }
+    });
 </script>
 
 </body>
