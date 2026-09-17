@@ -186,6 +186,8 @@
         #lightbox-img {
             cursor: zoom-in;
             user-select: none;
+            touch-action: none;
+            -webkit-user-drag: none;
         }
 
         .lightbox-close {
@@ -957,6 +959,7 @@
 
     lightboxImg.addEventListener('click', function(e) {
         e.stopPropagation();
+        if (suppressClick) return;   // 터치 조작은 확대 토글하지 않음
         if (wasDragged) {
             wasDragged = false;
             return;
@@ -1008,6 +1011,71 @@
             panY = 0;
         }
         applyZoomTransform();
+    }, { passive: false });
+
+    // --- 모바일 터치: 한 손가락 스와이프로 사진 넘기기, 두 손가락으로만 확대 ---
+    let touchMode = null;          // 'swipe' | 'pan' | 'pinch'
+    let touchStartX = 0, touchStartY = 0;
+    let touchPanStartX = 0, touchPanStartY = 0;
+    let pinchStartDist = 0, pinchStartScale = 1;
+    let suppressClick = false;
+
+    function touchDistance(t1, t2) {
+        const dx = t1.clientX - t2.clientX;
+        const dy = t1.clientY - t2.clientY;
+        return Math.hypot(dx, dy);
+    }
+
+    lightboxImg.addEventListener('touchstart', function(e) {
+        suppressClick = true;
+        if (e.touches.length === 2) {
+            touchMode = 'pinch';
+            pinchStartDist = touchDistance(e.touches[0], e.touches[1]);
+            pinchStartScale = zoomScale;
+        } else if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchPanStartX = panX;
+            touchPanStartY = panY;
+            touchMode = zoomScale > 1 ? 'pan' : 'swipe';
+        }
+        e.preventDefault();
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchmove', function(e) {
+        if (touchMode === 'pinch' && e.touches.length === 2) {
+            const dist = touchDistance(e.touches[0], e.touches[1]);
+            if (pinchStartDist > 0) {
+                zoomScale = Math.min(4, Math.max(1, pinchStartScale * (dist / pinchStartDist)));
+                if (zoomScale === 1) {
+                    panX = 0;
+                    panY = 0;
+                }
+                applyZoomTransform();
+            }
+        } else if (touchMode === 'pan' && e.touches.length === 1) {
+            panX = touchPanStartX + (e.touches[0].clientX - touchStartX);
+            panY = touchPanStartY + (e.touches[0].clientY - touchStartY);
+            applyZoomTransform();
+        }
+        e.preventDefault();
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchend', function(e) {
+        if (touchMode === 'swipe' && e.changedTouches.length === 1) {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            // 가로로 충분히 밀었을 때만 사진 넘김 (세로 스크롤과 구분)
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+                lightboxNav(dx < 0 ? 1 : -1);
+            }
+        }
+        if (e.touches.length === 0) {
+            touchMode = null;
+            // 터치로 발생하는 합성 click(확대 토글)을 막음
+            setTimeout(function() { suppressClick = false; }, 300);
+        }
+        e.preventDefault();
     }, { passive: false });
 
     document.addEventListener('keydown', function(e) {
